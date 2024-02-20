@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<div *ngIf="!(loading$ | async)">
+    
+  
+  <div class="container-fluid d-flex flex-column align-items-center justify-content-center" id="main-container" *ngIf="numTentativi > 0">
+    
+    <div class="logo_container">
+      <img src="assets/logo.png" class="background-overlay-1">
+    </div>
+    <div class="image-container">
+      <img src="assets/fucile.gif" class="mirrored-image">
+      <img src="assets/fucile.gif" class="original-image">
+    </div>
+
+    <h1 class="titolo text-center mt-8 mb-4">CIAO SQUADRA!</h1>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form)" class="form">
+      <div class="form-group">
+        <input type="text" class="form-control" id="risposta" formControlName="risposta" placeholder="Inserisci la risposta" autofocus>
+        <small id="help" class="form-text text-muted text-center">Hai a disposizione {{numTentativi}} tentativi</small>
+      </div>
+    
+      <button type="submit" class="btn btn-primary btn-block mt-6 custom-btn" [disabled]="!form.valid || numTentativi == 0">Invia</button>
+   
+    </form>  
+    <div *ngIf="rispostaSbagliata" id="error-message" class="alert alert-danger mt-3" role="alert">Risposta sbagliata! Riprova!</div>
+    
+  </div>
+
+
+
+
+  <div class="container-fluid d-flex flex-column align-items-center justify-content-center" id="result-container" *ngIf="numTentativi == 0">
+    <div class="logo_container">
+      <img src="assets/logo.png" class="background-overlay-1">
+    </div>
+    <div class="image-container">
+      <img src="assets/fucile.gif" class="mirrored-image">
+      <img src="assets/fucile.gif" class="original-image">
+    </div>
+    <div class="text-center mt-4" *ngIf="numTentativi == 0 && success == false" role="alert">
+      <h1>Hai cannato la prova!</h1>
+      <div class="image-container">
+        <img src="assets/gameover.gif" class="gameover-image">
+      </div>
+    </div>
+
+    <div class="text-center mt-4" *ngIf="success == true" role="alert">
+      <h1>Hai superato la prova!</h1>
+      <div class="image-container">
+        <img src="assets/fuochi-d'artificio.gif" class="fuochi-image">
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">Powered by Reida Sat</footer>
+</div>
+
+<app-spinner></app-spinner>
+
+
+
